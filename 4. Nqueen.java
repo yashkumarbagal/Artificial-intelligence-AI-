@@ -1,9 +1,11 @@
 import java.util.*;
 
 public class Nqueen {
+    static int totalSolutions = 0;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter No of Queens :");
+        System.out.print("Enter No of Queens: ");
         int N = sc.nextInt();
         int board[][] = new int[N][N];
 
@@ -13,36 +15,29 @@ public class Nqueen {
             }
         }
         helper(board, 0, N);
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (board[i][j] == 1) {
-                    System.out.print(" " + "Q" + " ");
-                } else {
-                    System.out.print(" " + "_" + " ");
-                }
-                // System.out.print(" "+board[i][j]+" ");
-            }
-            System.out.println();
-        }
+        if (totalSolutions == 0)
+            System.out.println("No solutions found.");
+        else
+            System.out.println("Total solutions: " + totalSolutions);
         sc.close();
     }
 
     public static boolean helper(int board[][], int col, int N) {
         if (col >= N) {
-            return true;
+            totalSolutions++;
+            System.out.println("Solution " + totalSolutions + ":");
+            printSolution(board, N);
+            return false; // change to false to find all solutions
         }
+        boolean res = false;
         for (int i = 0; i < N; i++) {
             if (safe(board, col, i, N)) {
                 board[i][col] = 1;
-
-                if (helper(board, col + 1, N)) {
-                    return true;
-                }
+                res = helper(board, col + 1, N) || res;
                 board[i][col] = 0;
             }
         }
-
-        return false;
+        return res;
     }
 
     public static boolean safe(int board[][], int col, int row, int N) {
@@ -64,16 +59,19 @@ public class Nqueen {
             }
         }
         return true;
+    }
 
+    public static void printSolution(int[][] board, int N) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j] == 1) {
+                    System.out.print(" Q ");
+                } else {
+                    System.out.print(" _ ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }
-
-// Output:
-
-// Enter No of Queens :6
-// _ _ _ Q _ _
-// Q _ _ _ _ _
-// _ _ _ _ Q _
-// _ Q _ _ _ _
-// _ _ _ _ _ Q
-// _ _ Q _ _ _
