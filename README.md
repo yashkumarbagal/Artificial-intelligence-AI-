@@ -1,2 +1,3 @@
-# Artificial-intelligence-AI-
-Artificial intelligence (AI) Algorithm Codes 
+# Artificial-intelligence-AI (SPPU TE Computer)
+This Repo Contains Artificial intelligence (AI) Algorithm Codes for Practicle Exam
+
